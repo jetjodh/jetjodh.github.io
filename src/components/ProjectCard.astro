@@ -1,0 +1,75 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href?: string;
+  tags?: string[];
+}
+
+const { title, description, href, tags = [] } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class="project-card card" {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+  <h3 class="project-title">
+    {title}
+    {href && (
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    )}
+  </h3>
+  <p class="project-desc">{description}</p>
+  {tags.length > 0 && (
+    <div class="project-tags">
+      {tags.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+  )}
+</Tag>
+
+<style>
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .project-card:hover {
+    text-decoration: none;
+  }
+
+  a.project-card {
+    cursor: pointer;
+  }
+
+  .project-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .external-icon {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  a.project-card:hover .project-title {
+    color: var(--color-accent);
+  }
+
+  .project-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

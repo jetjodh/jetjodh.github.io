@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  bullets: string[];
+}
+
+const { title, company, location, period, bullets } = Astro.props;
+---
+
+<div class="experience-item">
+  <div class="experience-header">
+    <div>
+      <h3 class="experience-title">{title}</h3>
+      <p class="experience-company">{company} &middot; {location}</p>
+    </div>
+    <span class="experience-period">{period}</span>
+  </div>
+  <ul class="experience-bullets">
+    {bullets.map((bullet) => (
+      <li>{bullet}</li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .experience-item {
+    padding-bottom: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .experience-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .experience-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-company {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .experience-period {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .experience-bullets {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    padding-left: var(--space-lg);
+  }
+
+  .experience-bullets li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .experience-header {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>

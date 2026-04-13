@@ -1,0 +1,101 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Blog — Jodh Singh" description="Writing about ML engineering, diffusion models, and building AI systems.">
+  <section class="section">
+    <h1>Blog</h1>
+    <p class="page-desc">Thoughts on ML engineering, diffusion models, and building AI systems.</p>
+  </section>
+
+  {posts.length === 0 ? (
+    <p class="empty-state">No posts yet. Check back soon.</p>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li class="post-item">
+          <a href={`/blog/${post.slug}/`}>
+            <div class="post-info">
+              <span class="post-title">{post.data.title}</span>
+              <p class="post-desc">{post.data.description}</p>
+            </div>
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            </time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>
+
+<style>
+  .page-desc {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    text-decoration: none;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast);
+  }
+
+  .post-item:first-child a {
+    padding-top: 0;
+  }
+
+  .post-item a:hover .post-title {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .post-title {
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .post-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .post-item time {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 0.15em;
+  }
+
+  @media (max-width: 600px) {
+    .post-item a {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>

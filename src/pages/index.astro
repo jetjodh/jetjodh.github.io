@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<Base title="Jodh Singh — Applied ML Engineer at fal.ai">
+  <!-- Hero -->
+  <section class="hero section">
+    <h1>Jodh Singh</h1>
+    <p class="hero-tagline">
+      Applied ML Engineer at <strong>fal.ai</strong>.
+      MS in Computer Science from Rutgers University.
+    </p>
+    <p class="hero-sub">
+      Passionate about diffusion models, scalable ML infrastructure, and on-device AI.
+      Previously Lead ML Engineer at PictureStudio.
+    </p>
+    <div class="hero-links">
+      <a href="/about">About me</a>
+      <span class="separator">/</span>
+      <a href="/projects">Projects</a>
+      <span class="separator">/</span>
+      <a href="/blog">Blog</a>
+      <span class="separator">/</span>
+      <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </section>
+
+  <!-- Recent writing -->
+  {posts.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">Recent Writing</h2>
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li class="post-item">
+            <a href={`/blog/${post.slug}/`}>
+              <span class="post-title">{post.data.title}</span>
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </time>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/blog" class="view-all">View all posts &rarr;</a>
+    </section>
+  )}
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jodh Singh",
+    "url": "https://jetjodh.github.io",
+    "jobTitle": "Applied ML Engineer",
+    "worksFor": { "@type": "Organization", "name": "fal.ai" },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Rutgers University" },
+      { "@type": "CollegeOrUniversity", "name": "Guru Gobind Singh Indraprastha University" }
+    ],
+    "sameAs": [
+      "https://github.com/jetjodh",
+      "https://www.linkedin.com/in/jetjodh/",
+      "https://twitter.com/jetjodh"
+    ]
+  })} />
+</Base>
+
+<style>
+  .hero {
+    padding-top: var(--space-2xl);
+  }
+
+  .hero h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-tagline {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-sub {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .hero-links a {
+    font-weight: 500;
+  }
+
+  .separator {
+    color: var(--color-border);
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+  }
+
+  .post-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--space-sm) 0;
+    text-decoration: none;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast);
+  }
+
+  .post-item a:hover {
+    color: var(--color-accent);
+  }
+
+  .post-item a:hover .post-title {
+    text-decoration: underline;
+  }
+
+  .post-item time {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    margin-left: var(--space-md);
+  }
+
+  .view-all {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+</style>

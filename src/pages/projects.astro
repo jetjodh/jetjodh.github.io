@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Production Level Inference Server',
+    description: 'LLM-focused inference server in FastAPI with ONNX runtime graph optimizations. Deployed on AWS EC2 with K8s via Terraform.',
+    tags: ['FastAPI', 'ONNX', 'Terraform', 'K8s'],
+  },
+  {
+    title: 'Short Story Generation from a Single Image',
+    description: 'Image synthesis system using CLIP embeddings from reference images, extrapolating them to create a visual narrative with chronologically and logically related images.',
+    tags: ['CLIP', 'Diffusion', 'Python'],
+  },
+  {
+    title: 'Hateful Meme Detection',
+    description: 'Facebook\'s Hateful Memes competition — classified memes as hateful or non-hateful using multi-modal techniques and data augmentation on fine-tuned LLMs. Achieved rank 1 at peak, top 50 finish.',
+    tags: ['Multi-modal', 'LLMs', 'PyTorch'],
+  },
+  {
+    title: 'Speed Tracking (YOLO-v3)',
+    description: 'Real-time speed estimation using YOLO-v3 and a centroid tracker. Predictions at 30 fps.',
+    href: 'https://github.com/jetjodh/speed_tracker',
+    tags: ['PyTorch', 'YOLO', 'Computer Vision'],
+  },
+  {
+    title: 'DeepFake Detection',
+    description: 'Kaggle Deep Fake Detection challenge — frame extraction with ffmpeg, face detection with RetinaFace, classification with EfficientNet.',
+    href: 'https://github.com/jetjodh/deepfake_detection',
+    tags: ['EfficientNet', 'RetinaFace', 'Kaggle'],
+  },
+  {
+    title: 'Logo Detection',
+    description: 'Logo detection in video clips using EfficientDet on the Openlogo dataset. Achieved 70.5% IoU and 85% label accuracy.',
+    href: 'https://github.com/jetjodh/logo_detect',
+    tags: ['EfficientDet', 'PyTorch', 'Object Detection'],
+  },
+];
+---
+
+<Base title="Projects — Jodh Singh" description="Selected projects by Jodh Singh — ML infrastructure, computer vision, and multimodal AI.">
+  <section class="section">
+    <h1>Projects</h1>
+    <p class="page-desc">Selected work spanning ML infrastructure, computer vision, and multimodal AI.</p>
+  </section>
+
+  <section class="projects-grid">
+    {projects.map((project) => (
+      <ProjectCard {...project} />
+    ))}
+  </section>
+</Base>
+
+<style>
+  .page-desc {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+</style>

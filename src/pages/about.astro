@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import ExperienceItem from '../components/ExperienceItem.astro';
+
+const experience = [
+  {
+    title: 'Applied ML Engineer',
+    company: 'fal.ai',
+    location: 'Remote',
+    period: 'Nov 2025 — Present',
+    bullets: [
+      'Working on diffusion and autoregressive multimodal models.',
+    ],
+  },
+  {
+    title: 'Lead ML Engineer',
+    company: 'PictureStudio',
+    location: 'Remote',
+    period: 'Aug 2023 — Oct 2025',
+    bullets: [
+      'Collaborated on an end-to-end multimodal creation platform — React/Next.js + GraphQL frontend over Python micro-services — that lets artists see, steer, and iterate on diffusion & autoregressive models; now generates 1000+ images per day.',
+      'Designed and productionized a LoRA/ControlNet training + inference pipeline (PyTorch, K8s) that scales from a lone GPU to multi-node clusters.',
+      'Extended open-source frameworks (ComfyUI, A1111) with custom nodes for depth, style, and 3-D camera paths.',
+      'Launched self-serve fine-tuning UI — drag-and-drop asset upload, handling 1–10,000+ images/job while maintaining high subject/style fidelity via VLM auto-captioning and image pre-processing.',
+      'Built a 100k-prompt human + synthetic eval harness; blocks quality regressions pre-deploy and feeds actionable metrics back to Research/Tech-Art.',
+      'Drove R&D on quantization and adapter training, unlocking on-device generation and new editing workflows now adopted by 90% of power users.',
+    ],
+  },
+  {
+    title: 'Full Stack SWE Intern',
+    company: 'Thrasio',
+    location: 'NYC, USA',
+    period: 'Jun 2022 — Sep 2022',
+    bullets: [
+      'Ported RESTful APIs to GraphQL to improve reliability and scalability. Developed React components and leveraged Terraform and Kubernetes for automated environment provisioning.',
+      'Built a backend upload service with GraphQL served from S3 for resilient file processing. Implemented async multi-table data updates and Elasticsearch search for fast querying.',
+      'Developed a barcode verification service using TypeScript, React, and PostgreSQL with custom GraphQL APIs and production monitoring.',
+    ],
+  },
+  {
+    title: 'Backend Software Developer',
+    company: 'Shiryam Technologies',
+    location: 'India',
+    period: 'Aug 2020 — Jul 2021',
+    bullets: [
+      'Architected modular CMS backend in Python/Flask, deployed on AWS. Reduced asset load times 5x to under 200ms via caching and async processing.',
+      'Developed reusable automated data pipelines for an algorithmic trading platform. Designed resilient DB ingestion mechanisms and failover handling.',
+      'Integrated payment gateways and built out auth flows and hardened KYC processes for security.',
+    ],
+  },
+  {
+    title: 'ML Intern',
+    company: 'BlueStacks',
+    location: 'India',
+    period: 'Jun 2018 — Sep 2019',
+    bullets: [
+      'Designed and implemented smart controls recognition system using PyTorch, integrated natively into the BlueStacks application stack. Built scalable ML infrastructure and CI/CD pipelines.',
+      'Achieved 98.78% accuracy and 60ms average latency in real-world tests with a model size of just 10 MB.',
+      'Built an in-game OCR system using DL-based RCNNs. Achieved 77% image-to-text accuracy across English, French, German, Korean, Mandarin, and Japanese.',
+    ],
+  },
+];
+
+const skills = {
+  languages: ['Python', 'C/C++', 'C#', 'TypeScript', 'JavaScript'],
+  frameworks: ['PyTorch', 'Svelte', 'React', 'Node.js', 'Flask', 'Django', 'FastAPI', 'PostgreSQL'],
+  tools: ['Git', 'Terraform', 'Docker', 'Kubernetes', 'CircleCI', 'OpenAI APIs', 'GCP', 'AWS', 'Azure', 'Linux'],
+};
+---
+
+<Base title="About — Jodh Singh" description="Background, experience, and skills of Jodh Singh — Lead ML Engineer.">
+  <section class="section">
+    <h1>About</h1>
+    <p>
+      I'm an Applied ML Engineer at fal.ai. Previously Lead ML Engineer at PictureStudio, where I built
+      end-to-end multimodal creation platforms. I hold an MS in Computer Science from Rutgers University
+      and a B.Tech from Guru Gobind Singh Indraprastha University.
+    </p>
+    <p>
+      My work spans the full stack of ML — from training LoRA/ControlNet pipelines that scale across GPU
+      clusters, to building self-serve fine-tuning UIs, to driving R&D on quantization for on-device generation.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Experience</h2>
+    {experience.map((job) => (
+      <ExperienceItem {...job} />
+    ))}
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <h3>Languages</h3>
+        <div class="tag-group">
+          {skills.languages.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </div>
+      <div>
+        <h3>Frameworks</h3>
+        <div class="tag-group">
+          {skills.frameworks.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </div>
+      <div>
+        <h3>Developer Tools</h3>
+        <div class="tag-group">
+          {skills.tools.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Education</h2>
+    <div class="education-list">
+      <div class="education-item">
+        <div>
+          <h3>Rutgers University</h3>
+          <p class="edu-detail">MS Computer Science</p>
+        </div>
+        <span class="edu-period">Sep 2021 — May 2023</span>
+      </div>
+      <div class="education-item">
+        <div>
+          <h3>Guru Gobind Singh Indraprastha University</h3>
+          <p class="edu-detail">B.Tech Computer Science</p>
+        </div>
+        <span class="edu-period">Aug 2016 — Jun 2020</span>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .skills-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .skills-grid h3 {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-muted);
+  }
+
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .education-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .education-item h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-xs);
+  }
+
+  .edu-detail {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .edu-period {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .education-item {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>
